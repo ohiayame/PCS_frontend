@@ -1,6 +1,26 @@
 import "./style/ParkingLayout.css";
 
-export default function ParkingLayout() {
+function ParkingLayout({ parking }) {
+  console.log("parking", parking);
+
+  // const randomStatus = () => {
+  //   const r = Math.floor(Math.random() * 3);
+  //   if (r === 0) return "occupied";
+  //   if (r === 1) return "reserved";
+  //   return "empty";
+  // };
+
+  const getColor = (status) => {
+    switch (status) {
+      case "occupied":
+        return "#fad7d7ff";
+      case "reserved":
+        return "#fcffd3ff";
+      case "empty":
+        return "#d5ffd8";
+    }
+  };
+
   return (
     <div className="parking-lot">
       {/* 상단 화살표 */}
@@ -9,40 +29,55 @@ export default function ParkingLayout() {
 
       {/* 오른쪽 A구역 */}
       <div className="area-a">
-        <div className="slot-a">A1</div>
-        <div className="slot-a">A2</div>
-        <div className="slot-a">A3</div>
-        <div className="slot-a">A4</div>
-        <div className="slot-a">A5</div>
-        <div className="slot-a">A6</div>
+        {Array.from({ length: 6 }, (_, index) => (
+          <div
+            key={index}
+            className="slot-a"
+            style={{ backgroundColor: getColor(parking[index].status) }}
+          >
+            {parking[index].name}
+          </div>
+        ))}
       </div>
 
       {/* 중앙 B, C 구역 */}
       <div className="area-b">
-        <div className="slot">B2</div>
-        <div className="slot">B1</div>
-        <div className="slot">B4</div>
-        <div className="slot">B3</div>
+        {Array.from([7, 6, 9, 8], (val) => (
+          <div
+            key={val}
+            className="slot"
+            style={{ backgroundColor: getColor(parking[val].status) }}
+          >
+            {parking[val].name}
+          </div>
+        ))}
       </div>
       <div className="area-c">
-        <div className="slot">C2</div>
-        <div className="slot">C1</div>
-        <div className="slot">C4</div>
-        <div className="slot">C3</div>
+        {Array.from([11, 10, 13, 12], (val) => (
+          <div
+            key={val}
+            className="slot"
+            style={{ backgroundColor: getColor(parking[val].status) }}
+          >
+            {parking[val].name}
+          </div>
+        ))}
       </div>
 
       {/* 하단 D구역 */}
       <div className="area-d">
-        <div className="slot">D9</div>
-        <div className="slot">D8</div>
-        <div className="slot">D7</div>
-        <div className="slot">D6</div>
-        <div className="slot">D5</div>
-        <div className="slot">D4</div>
-        <div className="slot">D3</div>
-        <div className="slot">D2</div>
-        <div className="slot">D1</div>
+        {Array.from({ length: 9 }, (_, index) => (
+          <div
+            key={index}
+            className="slot"
+            style={{ backgroundColor: getColor(parking[22 - index].status) }}
+          >
+            {parking[22 - index].name}
+          </div>
+        ))}
       </div>
     </div>
   );
 }
+
+export default ParkingLayout;
