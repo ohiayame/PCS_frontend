@@ -1,15 +1,19 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { RouterData } from "@/routes/RouterData";
+import HomePage from "@/pages/HomePage";
+import "./fonts.css";
+import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
+
+const theme = createTheme({
+  typography: {
+    fontFamily: '"Oagothic", sans-serif',
+  },
+});
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        {RouterData.map((route, idx) => (
-          <Route key={idx} path={route.link} element={route.element} />
-        ))}
-      </Routes>
-    </BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <HomePage />
+    </ThemeProvider>
   );
 }
 

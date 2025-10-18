@@ -1,16 +1,17 @@
 import { Card, CardContent, Typography, Box } from "@mui/material";
 
 export default function InfoBox({ label, value }) {
+  const backColor = label == "주차가능 대수" ? "#f1fff3ff" : "#f4fbff";
   return (
     <>
       <Card
         sx={{
           position: "relative",
-          width: 400,
-          height: 280,
+          width: 420,
+          height: 325,
           borderRadius: 5,
           border: "5px solid black",
-          bgcolor: "#f4fbff",
+          bgcolor: backColor,
           boxShadow: 2,
           display: "flex",
           alignItems: "center",
@@ -22,7 +23,7 @@ export default function InfoBox({ label, value }) {
         <Box
           sx={{
             position: "absolute",
-            top: -35,
+            top: -50,
             bgcolor: "black",
             color: "white",
             fontSize: 45,

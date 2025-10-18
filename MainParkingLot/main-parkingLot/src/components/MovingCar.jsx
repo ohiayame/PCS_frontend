@@ -29,7 +29,7 @@ function MovingCar() {
           position: "absolute",
           top: `${position.y}px`,
           left: `${position.x}px`,
-          width: "100px",
+          width: "120px",
           transition: "all 1s ease-in-out", // ← 부드럽게 이동
         }}
       >

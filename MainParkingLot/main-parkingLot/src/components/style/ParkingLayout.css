@@ -14,7 +14,7 @@
   padding-top: 3px;
   font-size: 50px;
   outline: 3px solid black;
-  background: #eee;
+  /* background: #d5ffd8; */
   display: flex;
   justify-content: center;
   font-weight: bold;
@@ -27,7 +27,7 @@
   outline: 3px solid black;
   border-left: none;
   border-right: none;
-  background: #eee;
+  /* background: #d5ffd8; */
   display: flex;
   align-items: center;
   font-weight: bold;
@@ -50,7 +50,7 @@
   display: grid;
   grid-template-columns: repeat(2, 130px);
 }
- 
+
 .area-b {
   left: 803px;
 }
@@ -73,8 +73,8 @@
 }
 
 .arrow.left {
-  left: 80px;
+  left: 110px;
 }
 .arrow.right {
-  right: 280px;
+  right: 340px;
 }
