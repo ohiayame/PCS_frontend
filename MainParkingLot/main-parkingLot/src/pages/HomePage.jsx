@@ -2,6 +2,7 @@ import Layout from "@/layouts/Layout";
 import InfoBox from "@/components/InfoBox";
 import ParkingLayout from "@/components/ParkingLayout";
 import RootMap from "@/layouts/RootMap";
+import MovingCar from "@/components/MovingCar";
 
 import { Stack, CardMedia, Box } from "@mui/material";
 
@@ -52,6 +53,9 @@ function HomePage() {
 
         {/* 영역 지표 */}
         <RootMap />
+
+        {/* 차량 동작 */}
+        <MovingCar />
       </Stack>
     </Layout>
   );
