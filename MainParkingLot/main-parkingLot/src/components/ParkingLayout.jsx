@@ -1,15 +1,10 @@
 import "./style/ParkingLayout.css";
+import { Box } from "@mui/material";
 
 function ParkingLayout({ parking }) {
   console.log("parking", parking);
 
-  // const randomStatus = () => {
-  //   const r = Math.floor(Math.random() * 3);
-  //   if (r === 0) return "occupied";
-  //   if (r === 1) return "reserved";
-  //   return "empty";
-  // };
-
+  // 배경 색 지정
   const getColor = (status) => {
     switch (status) {
       case "occupied":
@@ -19,6 +14,26 @@ function ParkingLayout({ parking }) {
       case "empty":
         return "#d5ffd8";
     }
+  };
+
+  // 번호 출력
+  const CarNumber = (idx) => {
+    return (
+      <Box
+        sx={{
+          position: "absolute",
+          bgcolor: "#fffff8ff",
+          color: "#000000ff",
+          fontSize: 32,
+          borderRadius: "9999px",
+          px: 1.5,
+          py: 0,
+          ...(idx < 6 ? { ml: 9.5 } : { mt: 12 }),
+        }}
+      >
+        {parking[idx].car_number}
+      </Box>
+    );
   };
 
   return (
@@ -36,6 +51,7 @@ function ParkingLayout({ parking }) {
             style={{ backgroundColor: getColor(parking[index].status) }}
           >
             {parking[index].name}
+            {parking[index].car_number && CarNumber(index)}
           </div>
         ))}
       </div>
@@ -49,9 +65,12 @@ function ParkingLayout({ parking }) {
             style={{ backgroundColor: getColor(parking[val].status) }}
           >
             {parking[val].name}
+
+            {parking[val].car_number && CarNumber(val)}
           </div>
         ))}
       </div>
+      
       <div className="area-c">
         {Array.from([11, 10, 13, 12], (val) => (
           <div
@@ -60,6 +79,7 @@ function ParkingLayout({ parking }) {
             style={{ backgroundColor: getColor(parking[val].status) }}
           >
             {parking[val].name}
+            {parking[val].car_number && CarNumber(val)}
           </div>
         ))}
       </div>
@@ -73,6 +93,7 @@ function ParkingLayout({ parking }) {
             style={{ backgroundColor: getColor(parking[22 - index].status) }}
           >
             {parking[22 - index].name}
+            {parking[22 - index].car_number && CarNumber(22 - index)}
           </div>
         ))}
       </div>
