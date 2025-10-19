@@ -35,8 +35,17 @@ io.on("connection", (socket) => {
           status: "Parking",
           entry_time: Date.now() / 1000, // 초 단위 timestamp
           position: [
-            500 + Math.random() * 100, // x 좌표
-            100 + Math.random() * 100, // y 좌표
+            600 + Math.random() * 1000, // x 좌표
+            100 + Math.random() * 1000, // y 좌표
+          ],
+        },
+        2: {
+          car_number: "2485",
+          status: "Parking",
+          entry_time: Date.now() / 1000, // 초 단위 timestamp
+          position: [
+            Math.random() * 100, // x 좌표
+            Math.random() * 100, // y 좌표
           ],
         },
       },

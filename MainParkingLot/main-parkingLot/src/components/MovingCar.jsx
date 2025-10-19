@@ -24,24 +24,27 @@ function MovingCar() {
   return (
     <>
       <GetData setData={setData} setPrevData={setPrevData} />
-      <Box
-        sx={{
-          position: "absolute",
-          top: `${position.y}px`,
-          left: `${position.x}px`,
-          width: "120px",
-          transition: "all 1s ease-in-out", // ← 부드럽게 이동
-        }}
-      >
-        <CardMedia
-          component="img"
-          image="/Car.png"
-          alt="Car Logo"
+      {Object.entries(data?.moving || {}).map(([key, car]) => (
+        <Box
+          key={car.car_number}
           sx={{
-            objectFit: "contain",
+            position: "absolute",
+            top: `${car.position[1]}px`,
+            left: `${car.position[0]}px`,
+            width: "120px",
+            transition: "all 1s ease-in-out", // ← 부드럽게 이동
           }}
-        />
-      </Box>
+        >
+          <CardMedia
+            component="img"
+            image="/Car.png"
+            alt="Car Logo"
+            sx={{
+              objectFit: "contain",
+            }}
+          />
+        </Box>
+      ))}
     </>
   );
 }
