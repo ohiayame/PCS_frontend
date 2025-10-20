@@ -1,6 +1,8 @@
 import Box from "@mui/material/Box";
 
 function RootMap() {
+  const l = 645;
+  const t = 40;
   return (
     <>
       {/* 영역 2~14 */}
@@ -11,8 +13,8 @@ function RootMap() {
         <Box
           sx={{
             position: "fixed",
-            top: "35px",
-            left: "605px",
+            top: `${t + 0}px`,
+            left: `${l + 0}px`,
             width: "281px",
             height: "237px",
             outline: "1px solid red",
@@ -25,10 +27,10 @@ function RootMap() {
         <Box
           sx={{
             position: "fixed",
-            top: "273px",
-            left: "605px",
+            top: "278px",
+            left: "645px",
             width: "281px",
-            height: "359px",
+            height: "354px",
             outline: "1px solid red",
             fontSize: "100px",
           }}
@@ -40,9 +42,9 @@ function RootMap() {
           sx={{
             position: "fixed",
             top: "633px",
-            left: "605px",
+            left: "645px",
             width: "281px",
-            height: "201px",
+            height: "200px",
             outline: "1px solid red",
             fontSize: "100px",
           }}
@@ -57,11 +59,11 @@ function RootMap() {
         <Box
           sx={{
             position: "fixed",
-            top: "35px",
-            left: "887px",
+            top: `${t + 0}px`,
+            left: `${l + 282}px`,
             width: "263px",
             height: "237px",
-            outline: "1px solid red",
+            outline: "1px solid green",
             fontSize: "100px",
           }}
         >
@@ -72,7 +74,7 @@ function RootMap() {
           sx={{
             position: "fixed",
             top: "633px",
-            left: "887px",
+            left: "928px",
             width: "263px",
             height: "201px",
             outline: "1px solid red",
@@ -89,8 +91,8 @@ function RootMap() {
         <Box
           sx={{
             position: "fixed",
-            top: "35px",
-            left: "1151px",
+            top: "40px",
+            left: "1192px",
             width: "255px",
             height: "237px",
             outline: "1px solid red",
@@ -103,10 +105,10 @@ function RootMap() {
         <Box
           sx={{
             position: "fixed",
-            top: "273px",
-            left: "1151px",
+            top: "278px",
+            left: "1192px",
             width: "255px",
-            height: "359px",
+            height: "354px",
             outline: "1px solid red",
             fontSize: "100px",
           }}
@@ -118,7 +120,7 @@ function RootMap() {
           sx={{
             position: "fixed",
             top: "633px",
-            left: "1151px",
+            left: "1192px",
             width: "255px",
             height: "201px",
             outline: "1px solid red",
@@ -135,9 +137,9 @@ function RootMap() {
         <Box
           sx={{
             position: "fixed",
-            top: "35px",
-            left: "1407px",
-            width: "263px",
+            top: "40px",
+            left: "1448px",
+            width: "262px",
             height: "237px",
             outline: "1px solid red",
             fontSize: "100px",
@@ -149,11 +151,11 @@ function RootMap() {
         <Box
           sx={{
             position: "fixed",
-            top: "633px",
-            left: "1407px",
-            width: "263px",
+            top: `${t + 593}px`,
+            left: `${l + 803}px`,
+            width: "262px",
             height: "201px",
-            outline: "1px solid red",
+            outline: "1px solid green",
             fontSize: "100px",
           }}
         >
@@ -167,8 +169,8 @@ function RootMap() {
         <Box
           sx={{
             position: "fixed",
-            top: "35px",
-            left: "1671px",
+            top: "40px",
+            left: "1711px",
             width: "327px",
             height: "237px",
             outline: "1px solid red",
@@ -181,10 +183,10 @@ function RootMap() {
         <Box
           sx={{
             position: "fixed",
-            top: "273px",
-            left: "1671px",
+            top: "278px",
+            left: "1711px",
             width: "327px",
-            height: "359px",
+            height: "354px",
             outline: "1px solid red",
             fontSize: "100px",
           }}
@@ -196,7 +198,7 @@ function RootMap() {
           sx={{
             position: "fixed",
             top: "633px",
-            left: "1671px",
+            left: "1711px",
             width: "327px",
             height: "201px",
             outline: "1px solid red",

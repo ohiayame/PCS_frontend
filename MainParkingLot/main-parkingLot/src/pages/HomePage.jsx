@@ -46,25 +46,24 @@ function HomePage() {
             sx={{ objectFit: "contain", p: 2, mt: 8, width: 600 }}
           />
         </div>
-
-        {/* -----  주차장 Map  ----- */}
-        <Box
-          sx={{
-            position: "fixed",
-            top: "45px",
-            left: "600px",
-            borderRadius: 2,
-          }}
-        >
-          <ParkingLayout parking={data.parking_spaces} />
-        </Box>
-
-        {/* 영역 지표 */}
-        {/* <RootMap /> */}
-
-        {/* 차량 동작 */}
-        <MovingCar data={data.web_positions} />
       </Stack>
+
+      {/* -----  주차장 Map  ----- */}
+      <Box
+        sx={{
+          position: "fixed",
+          top: "40px",
+          left: "645px",
+          borderRadius: 2,
+        }}
+      >
+        <ParkingLayout parking={data.parking_spaces} />
+      </Box>
+      {/* 차량 동작 */}
+      <MovingCar data={data.web_positions} />
+
+      {/* 영역 지표 */}
+      {/* <RootMap /> */}
     </>
   );
 }
