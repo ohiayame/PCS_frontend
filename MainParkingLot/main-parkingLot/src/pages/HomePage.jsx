@@ -1,23 +1,25 @@
-import Layout from "@/layouts/Layout";
 import InfoBox from "@/components/InfoBox";
 import ParkingLayout from "@/components/ParkingLayout";
 import RootMap from "@/layouts/RootMap";
 import MovingCar from "@/components/MovingCar";
+import GetData from "@/api/Socket/socket";
 import { getCarData } from "@/api/mock";
 import { useState } from "react";
 import { Stack, CardMedia, Box } from "@mui/material";
 
 function HomePage() {
   const [data, setData] = useState(getCarData());
+  const [prevData, setPrevData] = useState(null);
   const total = 23; // 총 주차 공간
 
-  const EmptyCount = Object.values(data.parking).filter(
+  const EmptyCount = Object.values(data.parking_spaces).filter(
     (p) => p.status == "empty"
   ).length;
   console.log("EmptyCount", EmptyCount);
 
   return (
-    <Layout navUrl="/admin" val="AdminPage">
+    <>
+      <GetData setData={setData} setPrevData={setPrevData} />
       <Stack
         direction="row"
         spacing={5}
@@ -54,16 +56,16 @@ function HomePage() {
             borderRadius: 2,
           }}
         >
-          <ParkingLayout parking={data.parking} />
+          <ParkingLayout parking={data.parking_spaces} />
         </Box>
 
         {/* 영역 지표 */}
         {/* <RootMap /> */}
 
         {/* 차량 동작 */}
-        <MovingCar />
+        <MovingCar data={data.web_positions} />
       </Stack>
-    </Layout>
+    </>
   );
 }
 

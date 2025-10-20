@@ -9,7 +9,7 @@ function ParkingLayout({ parking }) {
     switch (status) {
       case "occupied":
         return "#fad7d7ff";
-      case "reserved":
+      case "target":
         return "#fcffd3ff";
       case "empty":
         return "#d5ffd8";
