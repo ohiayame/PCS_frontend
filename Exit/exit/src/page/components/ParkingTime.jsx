@@ -6,14 +6,14 @@ function ParkingTime({ parkingTime }) {
       <Card
         sx={{
           position: "fixed",
-          bottom: 230,
+          bottom: 210,
           right: 65,
           width: 600,
-          height: 230,
-          borderRadius: 20,
-          border: "5px solid black",
-          bgcolor: "#f4fbff",
-          boxShadow: 2,
+          height: 270,
+          backgroundColor: "#ffffffff",
+          border: "0.5px solid rgba(0, 0, 0, 0.3)",
+          boxShadow: "inset 0px 0px 10px rgba(0,0,0,.3)",
+          borderRadius: "20px",
           display: "flex",
           alignItems: "center",
           overflow: "visible",
@@ -23,15 +23,10 @@ function ParkingTime({ parkingTime }) {
         <Box
           sx={{
             position: "absolute",
-            top: -35,
+            top: 0,
             left: 25,
-            bgcolor: "black",
-            color: "white",
-            fontSize: 45,
-            px: 4,
-            py: 1,
+            fontSize: 65,
             borderRadius: "9999px",
-            whiteSpace: "nowrap",
           }}
         >
           주차 시간
@@ -41,7 +36,7 @@ function ParkingTime({ parkingTime }) {
           <Typography
             variant="h2"
             sx={{
-              pt: 2,
+              pt: 8,
               fontSize: "140px",
             }}
           >

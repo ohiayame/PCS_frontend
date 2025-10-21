@@ -6,45 +6,36 @@ export default function InfoBox({ value }) {
       <Card
         sx={{
           position: "fixed",
-          bottom: 150,
+          bottom: 110,
           right: 30,
           width: 600,
           height: 280,
-          borderRadius: 20,
-          border: "5px solid black",
-          bgcolor: "#f4fbff",
-          boxShadow: 2,
+          borderRadius: 2,
+          border: "0.5px solid rgba(0, 0, 0, 0.3)",
+          boxShadow: "inset 0px 0px 10px rgba(0,0,0,.3)",
+          bgcolor: "#ffffffff",
           display: "flex",
           alignItems: "center",
           overflow: "visible",
         }}
       >
-        {/* 라벨 */}
-        <Box
-          sx={{
-            position: "absolute",
-            top: -35,
-            left: 25,
-            bgcolor: "black",
-            color: "white",
-            fontSize: 45,
-            px: 4,
-            py: 1,
-            borderRadius: "9999px",
-            whiteSpace: "nowrap",
-            fontWeight: "530",
-          }}
-        >
-          차량 번호
-        </Box>
         {/* 번호 */}
-        <CardContent sx={{ m: "auto", marginTop: 5, textAlign: "center" }}>
+        <CardContent>
+          <Typography
+            variant="h2"
+            sx={{
+              fontSize: "70px",
+              lineHeight: 1,
+            }}
+          >
+            차량 번호
+          </Typography>
           <Typography
             variant="h2"
             sx={{
               fontSize: "170px",
-              fontWeight: "bold",
               lineHeight: 1,
+              ml: 5,
             }}
           >
             {value}

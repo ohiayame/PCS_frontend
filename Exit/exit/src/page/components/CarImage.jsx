@@ -5,9 +5,9 @@ function CarImage({ carImg }) {
     <>
       <Box
         sx={{
-          width: 480,
-          height: 280,
-          border: "10px solid #3DE6E6",
+          width: 500,
+          height: 320,
+          border: "1px solid rgba(0, 0, 0, 0.5)",
           borderRadius: "20px",
           display: "flex",
           justifyContent: "center",

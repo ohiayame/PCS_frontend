@@ -8,15 +8,14 @@ export function Time(timestamp) {
   const hours = String(date.getHours()).padStart(2, "0");
   const minutes = String(date.getMinutes()).padStart(2, "0");
 
-  return `${year}.${month}.${day} ${hours}:${minutes}`;
+  return [`${year}.${month}.${day}`, `${hours}:${minutes}`];
 }
-
 
 // 주차 시간 계산
 export function getElapsedTime(entryStr, nowStr) {
   // 문자열 → Date 객체 변환
-  const entry = new Date(entryStr.replace(/\./g, "-"));
-  const now = new Date(nowStr.replace(/\./g, "-"));
+  const entry = new Date(`1970-01-01T${entryStr[1]}`);
+  const now = new Date(`1970-01-01T${nowStr[1]}`);
 
   // 차이(ms 단위)
   const diffMs = now - entry;
