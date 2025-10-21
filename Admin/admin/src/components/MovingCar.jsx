@@ -2,36 +2,35 @@ import { useState, useEffect } from "react";
 // import GetData from "@/api/Socket/socket";
 import { CardMedia, Box } from "@mui/material";
 
-function MovingCar() {
-  const [data, setData] = useState(null);
-  const [prevData, setPrevData] = useState(null);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-
+function MovingCar({ Positions }) {
+  const [position, setPosition] = useState([130, 100]);
+  // 애니메이션
   useEffect(() => {
-    console.log("data: ", data);
-    console.log("prevData: ", prevData);
+    if (!Positions) return;
 
-    if (!data || !data.moving) return;
+    const keys = Object.keys(Positions).sort((a, b) => Number(a) - Number(b));
+    let index = 0;
 
-    const carObj = Object.values(data.moving)[0];
-    if (!carObj || !carObj.position) return;
-    console.log(carObj);
-    const [x, y] = carObj.position;
+    const moveInterval = setInterval(() => {
+      const current = Positions[keys[index]];
+      setPosition(current);
 
-    setPosition({ x, y });
-  }, [data, prevData]);
+      // 마지막 프레임이면 다시 처음으로
+      index = (index + 1) % keys.length;
+    }, 800);
+
+    return () => clearInterval(moveInterval);
+  }, [Positions]);
 
   return (
     <>
-      {/* <GetData setData={setData} setPrevData={setPrevData} /> */}
-      {/* {Object.entries(data?.moving || {}).map(([key, car]) => ( */}
       <Box
-        // key={car.car_number}
         sx={{
           position: "absolute",
-          top: 60, // `${car.position[1]}px`,
-          left: 50, // `${car.position[0]}px`,
-          width: "120px",
+          top: `${45 + position[1]}px`,
+          left: `${645 + position[0]}px`,
+          width: "150px",
+          transform: "translate(-50%, -50%)", // 이미지 중심
           transition: "all 1s ease-in-out", // ← 부드럽게 이동
         }}
       >
@@ -44,7 +43,6 @@ function MovingCar() {
           }}
         />
       </Box>
-      {/* ))} */}
     </>
   );
 }
