@@ -10,9 +10,9 @@ function ParkingLayout({ parking }) {
       case "occupied":
         return "#8f8f8fff";
       case "target":
-        return "#fdff96ff";
+        return "#fcff5dff";
       case "empty":
-        return "#80df87ff";
+        return "#51df5aff";
     }
   };
 

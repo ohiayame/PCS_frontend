@@ -18,7 +18,7 @@ function HomePage() {
   console.log("EmptyCount", EmptyCount);
 
   return (
-    <div style={{ backgroundColor: "#cececeff" }}>
+    <div style={{ backgroundColor: "#d1d1d1ff" }}>
       <GetData setData={setData} setPrevData={setPrevData} />
       <Stack direction="row" spacing={5} sx={{ alignItems: "flex-start" }}>
         {/* -----  주차 대수  ----- */}
@@ -68,7 +68,7 @@ function HomePage() {
           position: "fixed",
           top: 45,
           left: 217,
-          bgcolor: "#fdff96ff",
+          bgcolor: "#fcff5dff",
           border: "1px solid rgba(0, 0, 0, 0.5)",
           boxShadow: "inset 0px 0px 10px rgba(0,0,0,.3)",
           color: "black",
@@ -87,7 +87,7 @@ function HomePage() {
           position: "fixed",
           top: 45,
           left: 425,
-          bgcolor: "#80df87ff",
+          bgcolor: "#51df5aff",
           border: "1px solid rgba(0, 0, 0, 0.5)",
           boxShadow: "inset 0px 0px 10px rgba(0,0,0,.3)",
           color: "black",
