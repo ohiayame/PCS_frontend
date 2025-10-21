@@ -7,6 +7,9 @@ import { useEffect, useState } from "react";
 import { Box, Typography, CardMedia } from "@mui/material";
 
 const Enter = (carNum, carImg) => {
+  const now = Time();
+  const date = now[0];
+  const time = now[1];
   return (
     <>
       {/* -----  입차  ----- */}
@@ -16,9 +19,10 @@ const Enter = (carNum, carImg) => {
           display: "inline-flex",
           justifyContent: "center",
           alignItems: "center",
-          backgroundColor: "#fff9c4",
-          borderRadius: "30px",
-          boxShadow: "4px 5px 9px rgba(56, 19, 19, 0.25)",
+          backgroundColor: "#fcff5dff",
+          border: "0.5px solid rgba(0, 0, 0, 0.3)",
+          boxShadow: "inset 0px 0px 10px rgba(0,0,0,.3)",
+          borderRadius: "20px",
           width: 400,
           height: 170,
           left: 40,
@@ -45,12 +49,26 @@ const Enter = (carNum, carImg) => {
       <Box
         sx={{
           position: "fixed",
-          top: 140,
-          right: 35,
+          p: 2,
+          backgroundColor: "#ffffffff",
+          border: "0.5px solid rgba(0, 0, 0, 0.3)",
+          boxShadow: "inset 0px 0px 10px rgba(0,0,0,.3)",
+          borderRadius: "20px",
+          height:210,
+          top: 100,
+          right: 50,
         }}
       >
-        <p style={{ fontSize: 70, fontWeight: "bold", letterSpacing: "3px" }}>
-          {Time()}
+        <p style={{ fontSize: 50, }}>
+          {date}
+        </p>
+        <p
+          style={{
+            fontSize: 80,
+            marginLeft: "120px",
+          }}
+        >
+          {time}
         </p>
       </Box>
 
@@ -66,16 +84,16 @@ function EntrancePage() {
   const [carImg, setCarImg] = useState("");
 
   useEffect(() => {
-    if (data && data.car_number) {
-      setCarNum(data.car_number);
+    if (data && data.number) {
+      setCarNum(data.number);
     }
-    if (data && data.car_img) {
-      setCarImg(data.car_img);
+    if (data && data.image) {
+      setCarImg(data.image);
     }
   }, [data]);
 
   return (
-    <>
+    <div style={{ height: "100vh", backgroundColor: "#d1d1d1ff" }}>
       {/* socket 데이터 받기 */}
       <GetData setData={setData} />
 
@@ -94,10 +112,10 @@ function EntrancePage() {
           component="img"
           image="/YeungjinLogo.png"
           alt="Yeungjin Logo"
-          sx={{ objectFit: "contain", width: 500, top: 30 }}
+          sx={{ objectFit: "contain", width: 400, top: 30 }}
         />
       </Box>
-    </>
+    </div>
   );
 }
 
