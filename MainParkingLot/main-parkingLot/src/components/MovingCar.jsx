@@ -9,8 +9,8 @@ function MovingCar(data) {
           key={key}
           sx={{
             position: "absolute",
-            top: `${val[1]}px`,
-            left: `${val[0]}px`,
+            top: `${45 + val[1]}px`,
+            left: `${645 + val[0]}px`,
             width: "100px",
             transform: "translate(-50%, -50%)",
             transition: "all 1s ease-in-out", // ← 부드럽게 이동
