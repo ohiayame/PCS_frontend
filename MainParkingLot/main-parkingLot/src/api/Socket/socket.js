@@ -23,7 +23,7 @@ const GetData = ({ setData, setPrevData }) => {
     });
 
     // 서버에서 parking data를 보낼 때
-    newSocket.on("data", (newData) => {
+    newSocket.on("update-display", (newData) => {
       console.log("새 데이터 수신:", newData);
       setData((prev) => {
         setPrevData(prev);
