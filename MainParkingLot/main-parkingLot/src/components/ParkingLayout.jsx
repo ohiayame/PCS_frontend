@@ -8,11 +8,11 @@ function ParkingLayout({ parking }) {
   const getColor = (status) => {
     switch (status) {
       case "occupied":
-        return "#fad7d7ff";
+        return "#8f8f8fff";
       case "target":
-        return "#fcffd3ff";
+        return "#fdff96ff";
       case "empty":
-        return "#d5ffd8";
+        return "#80df87ff";
     }
   };
 
@@ -24,6 +24,7 @@ function ParkingLayout({ parking }) {
           position: "absolute",
           bgcolor: "#fffff8ff",
           color: "#000000ff",
+          outline: "4px solid #000000ff",
           fontSize: 32,
           borderRadius: "9999px",
           px: 1.5,

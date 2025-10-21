@@ -18,19 +18,15 @@ function HomePage() {
   console.log("EmptyCount", EmptyCount);
 
   return (
-    <>
+    <div style={{ backgroundColor: "#cececeff" }}>
       <GetData setData={setData} setPrevData={setPrevData} />
-      <Stack
-        direction="row"
-        spacing={5}
-        sx={{ mt: 5, alignItems: "flex-start" }}
-      >
+      <Stack direction="row" spacing={5} sx={{ alignItems: "flex-start" }}>
         {/* -----  주차 대수  ----- */}
         <div>
           <Stack
             direction="column"
-            spacing={12}
-            sx={{ mt: 10, marginLeft: "100px" }}
+            spacing={3}
+            sx={{ mt: 20, marginLeft: "100px" }}
           >
             {/* 계산 필요 */}
             <InfoBox label="주차가능 대수" value={EmptyCount} />
@@ -43,10 +39,68 @@ function HomePage() {
             component="img"
             image="/YeungjinLogo.png"
             alt="Yeungjin Logo"
-            sx={{ objectFit: "contain", p: 2, mt: 8, width: 600 }}
+            sx={{ objectFit: "contain", p: 2, mt: 1, width: 600 }}
           />
         </div>
       </Stack>
+
+      <Box
+        sx={{
+          position: "fixed",
+          left: 15,
+          top: 45,
+          bgcolor: "#8f8f8fff",
+          border: "1px solid rgba(0, 0, 0, 0.5)",
+          boxShadow: "inset 0px 0px 10px rgba(0,0,0,.3)",
+          color: "black",
+          fontSize: 40,
+          px: 4,
+          py: 1,
+          borderRadius: "20px",
+          whiteSpace: "nowrap",
+          fontWeight: "530",
+        }}
+      >
+        주차중
+      </Box>
+      <Box
+        sx={{
+          position: "fixed",
+          top: 45,
+          left: 217,
+          bgcolor: "#fdff96ff",
+          border: "1px solid rgba(0, 0, 0, 0.5)",
+          boxShadow: "inset 0px 0px 10px rgba(0,0,0,.3)",
+          color: "black",
+          fontSize: 40,
+          px: 2,
+          py: 1,
+          borderRadius: "20px",
+          whiteSpace: "nowrap",
+          fontWeight: "530",
+        }}
+      >
+        주차예정
+      </Box>
+      <Box
+        sx={{
+          position: "fixed",
+          top: 45,
+          left: 425,
+          bgcolor: "#80df87ff",
+          border: "1px solid rgba(0, 0, 0, 0.5)",
+          boxShadow: "inset 0px 0px 10px rgba(0,0,0,.3)",
+          color: "black",
+          fontSize: 40,
+          px: 2,
+          py: 1,
+          borderRadius: "20px",
+          whiteSpace: "nowrap",
+          fontWeight: "530",
+        }}
+      >
+        주차 가능
+      </Box>
 
       {/* -----  주차장 Map  ----- */}
       <Box
@@ -64,7 +118,7 @@ function HomePage() {
 
       {/* 영역 지표 */}
       {/* <RootMap /> */}
-    </>
+    </div>
   );
 }
 
