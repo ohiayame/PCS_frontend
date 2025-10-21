@@ -6,7 +6,7 @@ function MovingCar({ Positions }) {
   const [position, setPosition] = useState([130, 100]);
   // 애니메이션
   useEffect(() => {
-    if (!Positions) return;
+    if (!Positions?.[0]) return;
 
     const keys = Object.keys(Positions).sort((a, b) => Number(a) - Number(b));
     let index = 0;
