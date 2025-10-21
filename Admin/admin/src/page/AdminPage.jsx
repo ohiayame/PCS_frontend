@@ -56,8 +56,8 @@ function AdminPage() {
 
   return (
     <div style={{ backgroundColor: "#d1d1d1ff", height: 1200 }}>
-      <h1 style={{ fontSize: "50px", fontWeight: 800, marginLeft: "10px" }}>
-        AdminPage
+      <h1 style={{ fontSize: "80px", fontWeight: 800, marginLeft: "30px" }}>
+        주차 이력 관리
       </h1>
       <Box sx={{ p: 3 }}>
         {/* --------------------------------------  [ 검색 ]  -------------------------------------- */}
@@ -65,7 +65,7 @@ function AdminPage() {
           direction="row"
           alignItems="center"
           spacing={2}
-          sx={{ mb: 2, ml: 1, flexWrap: "wrap" }}
+          sx={{ mb: 2, ml: 5, flexWrap: "wrap" }}
         >
           {/* 아이콘 */}
           <QueryStatsIcon fontSize="large" />
