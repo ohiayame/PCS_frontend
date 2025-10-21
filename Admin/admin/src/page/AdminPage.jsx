@@ -79,7 +79,7 @@ function AdminPage() {
   }, [number, from, to]);
 
   return (
-    <>
+    <div style={{ backgroundColor: "#d1d1d1ff", height: "100%" }}>
       <h1 style={{ fontSize: "50px", fontWeight: 800, marginLeft: "10px" }}>
         AdminPage
       </h1>
@@ -198,7 +198,7 @@ function AdminPage() {
           </Table>
         </TableContainer>
       </Box>
-    </>
+    </div>
   );
 }
 

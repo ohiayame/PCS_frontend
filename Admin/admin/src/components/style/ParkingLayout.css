@@ -1,10 +1,9 @@
 .parking-lot {
   position: relative;
-  width: 1200px;
-  height: 800px;
-  border: 5px solid black;
-  background: #f4f8ff;
-  /* margin: auto; */
+  width: 1605px;
+  height: 983px;
+  border: 5px solid rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,33 +11,33 @@
 
 .slot {
   padding-top: 3px;
-  font-size: 40px;
-  outline: 3px solid black;
+  font-size: 50px;
+  outline: 7px solid black;
   /* background: #d5ffd8; */
   display: flex;
   justify-content: center;
   font-weight: bold;
-  width: 100px;
-  height: 145px;
+  width: 130px;
+  height: 175px;
 }
 .slot-a {
   padding-left: 5px;
-  font-size: 40px;
-  outline: 3px solid black;
+  font-size: 45px;
+  outline: 7px solid black;
   border-left: none;
   border-right: none;
-  /* background: #d5ffd8; */
+  margin-right: 4px;
   display: flex;
   align-items: center;
   font-weight: bold;
-  width: 150px;
-  height: 90px;
+  width: 200px;
+  height: 110px;
 }
 
 .area-a {
   position: absolute;
   right: 0;
-  top: 70px;
+  top: 120px;
   display: flex;
   flex-direction: column;
 }
@@ -46,24 +45,25 @@
 .area-b,
 .area-c {
   position: absolute;
-  top: 180px;
+  top: 240px;
   display: grid;
-  grid-template-columns: repeat(2, 100px);
+  grid-template-columns: repeat(2, 136px);
 }
 
 .area-b {
-  left: 580px;
+  left: 803px;
 }
 .area-c {
-  left: 190px;
+  left: 284px;
 }
 
 .area-d {
   position: absolute;
   bottom: 0;
+  margin-bottom: 3px;
   display: grid;
-  grid-template-columns: repeat(9, 100px);
-  left: 90px;
+  grid-template-columns: repeat(9, 136px);
+  left: 152px;
 }
 
 .arrow {
@@ -73,8 +73,8 @@
 }
 
 .arrow.left {
-  left: 70px;
+  left: 110px;
 }
 .arrow.right {
-  right: 280px;
+  right: 340px;
 }
