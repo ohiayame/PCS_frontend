@@ -15,45 +15,21 @@ import {
 } from "@mui/material";
 import QueryStatsIcon from "@mui/icons-material/QueryStats";
 import { getCarData } from "@/api/mock";
+import { dateAndTime } from "@/util/time";
+import { getColor } from "@/util/color";
 
 // ---------- Mock 데이터 ----------
 const mockData = getCarData();
 
-// ---- 시간 (2025-10-08T08:45:00 -> 25.10.08 08:45) ----
-const dateAndTime = (iso) => {
-  if (!iso) return "-";
-  const d = new Date(iso);
-  const pad = (n) => String(n).padStart(2, "0");
-  const yy = String(d.getFullYear()).slice(-2);
-  return `${yy}.${pad(d.getMonth() + 1)}.${pad(d.getDate())} 
-  ${pad(d.getHours())}:${pad(d.getMinutes())}`;
-};
-
-const statusSx = (s) => {
-  const base = {
-    fontWeight: 700,
-    width: "200px",
-    px: 1.5,
-    py: 0.25,
-    borderRadius: "9999px",
-    display: "inline-block",
-  };
-  if (s === "입차") return { ...base, bgcolor: "#fff176" }; // 노랑
-  if (s === "주차중") return { ...base, bgcolor: "#ffcdd2" }; // 핑크
-  if (s === "출차") return { ...base, bgcolor: "#e0e0e0" }; // 회색
-  return base;
-};
-
 // 입력창 스타일(둥근 모서리, 연한 배경, 검은 테두리)
 const inputSx = {
-  width: 230,
   "& .MuiOutlinedInput-root": {
-    borderRadius: "18px",
-    backgroundColor: "#eef7fb",
-    "& fieldset": { borderColor: "black", borderWidth: 4 },
-    "&:hover fieldset": { borderColor: "black" },
-    "&.Mui-focused fieldset": { borderColor: "black", borderWidth: 4 },
-    "& input": { py: 2 },
+    borderRadius: "20px",
+    border: "1px solid rgba(0, 0, 0, 0.5)",
+    boxShadow: "inset 0px 0px 10px rgba(0,0,0,.3)",
+    bgcolor: "#f7f7f7ff",
+    "&.Mui-focused fieldset": { borderColor: "black", borderWidth: 3 },
+    "& input": { py: 2, fontSize: 25 },
   },
 };
 
@@ -79,7 +55,7 @@ function AdminPage() {
   }, [number, from, to]);
 
   return (
-    <div style={{ backgroundColor: "#d1d1d1ff", height: "100%" }}>
+    <div style={{ backgroundColor: "#d1d1d1ff", height: 1200 }}>
       <h1 style={{ fontSize: "50px", fontWeight: 800, marginLeft: "10px" }}>
         AdminPage
       </h1>
@@ -94,7 +70,7 @@ function AdminPage() {
           {/* 아이콘 */}
           <QueryStatsIcon fontSize="large" />
           {/*   번호 검색   */}
-          <Typography sx={{ mr: 1.5, minWidth: 40, fontSize: "2rem" }}>
+          <Typography sx={{ minWidth: 40, fontSize: "50px" }}>
             번호 :
           </Typography>
           <TextField
@@ -104,7 +80,7 @@ function AdminPage() {
             sx={inputSx}
           />
           {/*   일시 검색   [ from ~ to ] */}
-          <Typography sx={{ mr: 1.5, minWidth: 40, fontSize: "2rem" }}>
+          <Typography sx={{ minWidth: 40, fontSize: "50px" }}>
             일시 :
           </Typography>
           <TextField
@@ -112,16 +88,15 @@ function AdminPage() {
             size="small"
             value={from}
             onChange={(e) => setFrom(e.target.value)}
-            sx={{ ...inputSx, width: 200 }}
+            sx={{ ...inputSx, width: 250 }}
           />
-          <Typography sx={{ mx: 1, fontSize: "2rem" }}>~</Typography>{" "}
-          {/*    ~    */}
+          <Typography sx={{ fontSize: "40px" }}>~</Typography> {/*    ~    */}
           <TextField
             type="date"
             size="small"
             value={to}
             onChange={(e) => setTo(e.target.value)}
-            sx={{ ...inputSx, width: 200 }}
+            sx={{ ...inputSx, width: 250 }}
           />
         </Stack>
 
@@ -130,28 +105,27 @@ function AdminPage() {
           component={Paper}
           sx={{
             borderRadius: 2,
-            overflow: "hidden",
-            p: 3,
-            ml: 2,
-            width: 1800,
+            p: 4,
+            m: "auto",
+            width: 2200,
           }}
         >
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell align="center" sx={{ fontSize: "3rem", pb: 3 }}>
+                <TableCell align="center" sx={{ fontSize: "70px", pb: 6 }}>
                   주차 상태
                 </TableCell>
-                <TableCell align="center" sx={{ fontSize: "3rem", pb: 3 }}>
+                <TableCell align="center" sx={{ fontSize: "70px", pb: 6 }}>
                   번호
                 </TableCell>
-                <TableCell align="center" sx={{ fontSize: "3rem", pb: 3 }}>
+                <TableCell align="center" sx={{ fontSize: "70px", pb: 6 }}>
                   주차구역
                 </TableCell>
-                <TableCell align="center" sx={{ fontSize: "3rem", pb: 3 }}>
+                <TableCell align="center" sx={{ fontSize: "70px", pb: 6 }}>
                   입차 시각
                 </TableCell>
-                <TableCell align="center" sx={{ fontSize: "3rem", pb: 3 }}>
+                <TableCell align="center" sx={{ fontSize: "70px", pb: 6 }}>
                   출차 시각
                 </TableCell>
               </TableRow>
@@ -159,38 +133,53 @@ function AdminPage() {
 
             {/* 행 클릭 -> 해당 차량 log페이지 이동 :carId */}
             <TableBody>
-              {rows.map((row) => (
+              {rows.map((car) => (
                 <TableRow
-                  key={row.id}
+                  key={car.id}
                   hover
                   sx={{ cursor: "pointer" }}
-                  onClick={() => navigate(`/carInfo/${row.id}`)}
+                  onClick={() => navigate(`/carInfo/${car.id}`)}
                 >
                   {/* 주차 상태 */}
                   <TableCell align="center" sx={{ fontSize: "2.5rem" }}>
-                    <Box component="span" sx={statusSx(row.status)}>
-                      {row.status}
+                    <Box
+                      component="span"
+                      sx={{
+                        fontWeight: 700,
+                        width: "200px",
+                        px: 1.5,
+                        py: 0.25,
+                        backgroundColor: getColor(car.status),
+                        borderRadius: "9999px",
+                        display: "inline-block",
+                      }}
+                    >
+                      {car.status == "target"
+                        ? "입차"
+                        : car.status == "occupied"
+                        ? "주차중"
+                        : "출차"}
                     </Box>
                   </TableCell>
 
                   {/* 번호 */}
                   <TableCell align="center" sx={{ fontSize: "2.5rem" }}>
-                    {row.number}
+                    {car.number}
                   </TableCell>
 
                   {/* 주차구역 */}
                   <TableCell align="center" sx={{ fontSize: "2.5rem" }}>
-                    {row.area}
+                    {car.area}
                   </TableCell>
 
                   {/* 입차 시각 */}
                   <TableCell align="center" sx={{ fontSize: "2.5rem" }}>
-                    {dateAndTime(row.entryAt)}
+                    {dateAndTime(car.entryAt)}
                   </TableCell>
 
                   {/* 출차 시각 */}
                   <TableCell align="center" sx={{ fontSize: "2.5rem" }}>
-                    {dateAndTime(row.exitAt)}
+                    {dateAndTime(car.exitAt)}
                   </TableCell>
                 </TableRow>
               ))}
