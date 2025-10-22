@@ -1,4 +1,5 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import {
   Box,
   Stack,
@@ -7,22 +8,22 @@ import {
   CardMedia,
   Button,
 } from "@mui/material";
+import { getCarInfoData } from "@/api/api";
 import ParkingLayout from "@/components/ParkingLayout";
-import { useNavigate } from "react-router-dom";
-import { getCarInfoData } from "@/api/mock";
 import MovingCar from "@/components/MovingCar";
 import { getColor } from "@/util/color";
 import { dateAndTime, getElapsedTime } from "@/util/time";
 import { calculateParkingFee } from "@/util/price";
-import { useEffect } from "react";
 
 // ---------- Mock 데이터 ----------
-const mockCars = getCarInfoData();
+// const mockCars = getCarInfoData();
+const carData = await getCarInfoData();
 
 // ----------------- [ 왼쪽 정보 ] ---------------------
 const CarInfo = (car) => {
   // 총 주차시간 계산 -> 금액 계산에 활용
-  const time = car.time != "" ? car.time : getElapsedTime(car.entryAt);
+  const time =
+    car.duration != "" ? car.duration : getElapsedTime(car.entry_time);
   return (
     <>
       <Stack sx={{ mt: 5, minWidth: 300 }}>
@@ -47,9 +48,9 @@ const CarInfo = (car) => {
               transform: "translateX(30px)",
             }}
           >
-            {car.status == "target"
+            {car.status == "moving"
               ? "입차"
-              : car.status == "occupied"
+              : car.status == "parking"
               ? "주차중"
               : "출차"}
           </Typography>
@@ -70,23 +71,28 @@ const CarInfo = (car) => {
         >
           <Stack spacing={1.5}>
             <Typography sx={{ fontSize: 35 }}>
-              <strong>번호 :</strong> {car.number}
+              <strong>번호 :</strong> {car.plate_number}
             </Typography>
             <Typography sx={{ fontSize: 35 }}>
               <strong>주차구역 :</strong> {car.area}
             </Typography>
             <Typography sx={{ fontSize: 35 }}>
-              <strong>입차시각 :</strong> {dateAndTime(car.entryAt)}
+              <strong>입차시각 :</strong> {dateAndTime(car.entry_time)}
             </Typography>
             <Typography sx={{ fontSize: 35 }}>
-              <strong>출차시각 :</strong> {dateAndTime(car.exitAt)}
+              <strong>출차시각 :</strong> {dateAndTime(car.exit_time)}
             </Typography>
             <Typography sx={{ fontSize: 35 }}>
               <strong>총 주차시간 :</strong> {time}
             </Typography>
             <Typography sx={{ fontSize: 35 }}>
               <strong>금액 :</strong>{" "}
-              {car.price != "" ? car.price : calculateParkingFee(time)}
+              {car.fee != ""
+                ? car.fee.toLocaleString("ko-KR", {
+                    style: "currency",
+                    currency: "KRW",
+                  })
+                : calculateParkingFee(time)}
             </Typography>
           </Stack>
         </Paper>
@@ -122,7 +128,7 @@ function CarInfoPage() {
   useEffect(() => {}, [carId]);
 
   // 존재하는지 확인
-  const car = mockCars.find((c) => c.id === Number(carId));
+  const car = carData.find((c) => c.id === Number(carId));
   console.log();
 
   return (
@@ -162,7 +168,7 @@ function CarInfoPage() {
         <ParkingLayout parking={car.area} status={car.status} />
       </Box>
       {/* 차량 동작 */}
-      <MovingCar Positions={car.position} />
+      <MovingCar Positions={car.route} />
 
       {/* ---------------------  [ 로고 ]  --------------------- */}
       <Box

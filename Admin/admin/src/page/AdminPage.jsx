@@ -14,12 +14,13 @@ import {
   TableContainer,
 } from "@mui/material";
 import QueryStatsIcon from "@mui/icons-material/QueryStats";
-import { getCarData } from "@/api/mock";
+import { getCarData } from "@/api/api";
 import { dateAndTime } from "@/util/time";
 import { getColor } from "@/util/color";
 
 // ---------- Mock 데이터 ----------
-const mockData = getCarData();
+// const mockData = getCarData();
+const data = await getCarData();
 
 // 입력창 스타일(둥근 모서리, 연한 배경, 검은 테두리)
 const inputSx = {
@@ -45,9 +46,9 @@ function AdminPage() {
   const rows = useMemo(() => {
     const start = from ? new Date(from + "T00:00:00") : null;
     const end = to ? new Date(to + "T23:59:59") : null;
-    return mockData.filter((r) => {
-      const passNumber = number ? r.number.includes(number) : true;
-      const t = new Date(r.entryAt);
+    return data.filter((r) => {
+      const passNumber = number ? r.plate_number.includes(number) : true;
+      const t = new Date(r.entry_time);
       const passFrom = start ? t >= start : true;
       const passTo = end ? t <= end : true;
       return passNumber && passFrom && passTo;
@@ -164,7 +165,7 @@ function AdminPage() {
 
                   {/* 번호 */}
                   <TableCell align="center" sx={{ fontSize: "2.5rem" }}>
-                    {car.number}
+                    {car.plate_number}
                   </TableCell>
 
                   {/* 주차구역 */}
@@ -174,12 +175,12 @@ function AdminPage() {
 
                   {/* 입차 시각 */}
                   <TableCell align="center" sx={{ fontSize: "2.5rem" }}>
-                    {dateAndTime(car.entryAt)}
+                    {dateAndTime(car.entry_time)}
                   </TableCell>
 
                   {/* 출차 시각 */}
                   <TableCell align="center" sx={{ fontSize: "2.5rem" }}>
-                    {dateAndTime(car.exitAt)}
+                    {dateAndTime(car.exit_time)}
                   </TableCell>
                 </TableRow>
               ))}
