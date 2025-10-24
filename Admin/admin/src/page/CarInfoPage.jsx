@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   Box,
   Stack,
@@ -17,12 +17,11 @@ import { calculateParkingFee } from "@/util/price";
 
 // ---------- Mock 데이터 ----------
 // const mockCars = getCarInfoData();
-const carData = await getCarInfoData();
 
 // ----------------- [ 왼쪽 정보 ] ---------------------
 const CarInfo = (car) => {
   // 총 주차시간 계산 -> 금액 계산에 활용
-  const time = getElapsedTime(car.entry_time);
+  const time = getElapsedTime(car?.entry_time);
   return (
     <>
       <Stack sx={{ mt: 5, minWidth: 300 }}>
@@ -32,7 +31,7 @@ const CarInfo = (car) => {
             display: "inline-flex",
             justifyContent: "center",
             alignItems: "center",
-            backgroundColor: getColor(car.status),
+            backgroundColor: getColor(car?.status),
             borderRadius: "30px",
             border: "1px solid rgba(0, 0, 0, 0.5)",
             boxShadow: "inset 0px 0px 10px rgba(0,0,0,.3)",
@@ -47,9 +46,9 @@ const CarInfo = (car) => {
               transform: "translateX(30px)",
             }}
           >
-            {car.status == "moving"
+            {car?.status == "moving"
               ? "입차"
-              : car.status == "parking"
+              : car?.status == "parking"
               ? "주차중"
               : "출차"}
           </Typography>
@@ -70,24 +69,24 @@ const CarInfo = (car) => {
         >
           <Stack spacing={1.5}>
             <Typography sx={{ fontSize: 35 }}>
-              <strong>번호 :</strong> {car.plate_number}
+              <strong>번호 :</strong> {car?.plate_number}
             </Typography>
             <Typography sx={{ fontSize: 35 }}>
-              <strong>주차구역 :</strong> {car.slot_name}
+              <strong>주차구역 :</strong> {car?.slot_name}
             </Typography>
             <Typography sx={{ fontSize: 35 }}>
-              <strong>입차시각 :</strong> {dateAndTime(car.entry_time)}
+              <strong>입차시각 :</strong> {dateAndTime(car?.entry_time)}
             </Typography>
             <Typography sx={{ fontSize: 35 }}>
-              <strong>출차시각 :</strong> {dateAndTime(car.exit_time)}
+              <strong>출차시각 :</strong> {dateAndTime(car?.exit_time)}
             </Typography>
             <Typography sx={{ fontSize: 35 }}>
               <strong>총 주차시간 :</strong> {time}
             </Typography>
             <Typography sx={{ fontSize: 35 }}>
               <strong>금액 :</strong>{" "}
-              {car.fee != ""
-                ? car.fee.toLocaleString("ko-KR", {
+              {car?.fee != null
+                ? car?.fee.toLocaleString("ko-KR", {
                     style: "currency",
                     currency: "KRW",
                   })
@@ -110,7 +109,7 @@ const CarInfo = (car) => {
         >
           <CardMedia
             component="img"
-            image={car.entry_photo_url}
+            image={car?.entry_photo_url}
             alt="차량 사진"
             sx={{ objectFit: "contain", width: 400 }}
           />
@@ -124,67 +123,79 @@ function CarInfoPage() {
   const navigate = useNavigate();
   const { carId } = useParams(); // url :carId
   console.log("carId", carId);
-  useEffect(() => {}, [carId]);
+  const [car, setCarData] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getCarInfoData(carId);
+      console.log("data", data);
+      setCarData(data);
+      // setCarData(data.data.find((c) => c.id === Number(carId)));
+    };
+    fetchData();
+  }, [carId]);
 
   // 존재하는지 확인
-  const car = carData.find((c) => c.id === Number(carId));
+
   console.log();
 
   return (
-    <div style={{ backgroundColor: "#d1d1d1ff", height: 1200 }}>
-      <Button
-        onClick={() => navigate("/")}
-        sx={{
-          mt: 3,
-          ml: 1,
-          mb: 3,
-          width: 230,
-          height: 40,
-          fontSize: 40,
-        }}
-      >
-        🠔 돌아가기
-      </Button>
+    car && (
+      <div style={{ backgroundColor: "#d1d1d1ff", height: 1200 }}>
+        <Button
+          onClick={() => navigate("/")}
+          sx={{
+            mt: 3,
+            ml: 1,
+            mb: 3,
+            width: 230,
+            height: 40,
+            fontSize: 40,
+          }}
+        >
+          🠔 돌아가기
+        </Button>
 
-      {/* -----------------------  [ 주차 정보 ]  ----------------------- */}
-      <Stack
-        direction="row"
-        spacing={5}
-        sx={{ alignItems: "flex-start", ml: "15px" }}
-      >
-        {CarInfo(car)}
-      </Stack>
-      {/* --------------------  [ 주차 로그 ]  -------------------- */}
-      <Box
-        sx={{
-          position: "fixed",
-          top: "45px",
-          left: "645px",
-          borderRadius: 2,
-        }}
-      >
-        {/* 주차장 컴포넌트 */}
-        <ParkingLayout parking={car.slot_name} status={car.status} />
-      </Box>
-      {/* 차량 동작 */}
-      <MovingCar Positions={car.routes} />
+        {/* -----------------------  [ 주차 정보 ]  ----------------------- */}
+        <Stack
+          direction="row"
+          spacing={5}
+          sx={{ alignItems: "flex-start", ml: "15px" }}
+        >
+          {CarInfo(car)}
+        </Stack>
+        {/* --------------------  [ 주차 로그 ]  -------------------- */}
+        <Box
+          sx={{
+            position: "fixed",
+            top: "45px",
+            left: "645px",
+            borderRadius: 2,
+          }}
+        >
+          {/* 주차장 컴포넌트 */}
+          <ParkingLayout parking={car?.slot_name} status={car?.status} />
+        </Box>
+        {/* 차량 동작 */}
+        <MovingCar Positions={car?.routes} />
 
-      {/* ---------------------  [ 로고 ]  --------------------- */}
-      <Box
-        sx={{
-          position: "fixed",
-          top: 1040,
-          left: 1725,
-        }}
-      >
-        <CardMedia
-          component="img"
-          image="/YeungjinLogo.png"
-          alt="Yeungjin Logo"
-          sx={{ objectFit: "contain", width: 500 }}
-        />
-      </Box>
-    </div>
+        {/* ---------------------  [ 로고 ]  --------------------- */}
+        <Box
+          sx={{
+            position: "fixed",
+            top: 1040,
+            left: 1725,
+          }}
+        >
+          <CardMedia
+            component="img"
+            image="/YeungjinLogo.png"
+            alt="Yeungjin Logo"
+            sx={{ objectFit: "contain", width: 500 }}
+          />
+        </Box>
+      </div>
+    )
   );
 }
 
