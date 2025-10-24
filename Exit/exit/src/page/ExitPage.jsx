@@ -13,7 +13,7 @@ const Enter = (carNum, carImg, entryTime, carParked, price) => {
   const now = Time();
   const parkingTime = getElapsedTime(entry, now); // 주차 시간 계산
   // const price = calculateParkingFee(parkingTime); // 금액 계산
-  
+
   return (
     <>
       {/* -----  출차  ----- */}
@@ -73,7 +73,7 @@ const Enter = (carNum, carImg, entryTime, carParked, price) => {
         sx={{
           position: "fixed",
           p: 2,
-          background:"white",
+          background: "white",
           border: "0.5px solid rgba(0, 0, 0, 0.3)",
           boxShadow: "inset 0px 0px 10px rgba(0,0,0,.3)",
           borderRadius: "20px",
@@ -132,20 +132,20 @@ function EntrancePage() {
   const [price, setPrice] = useState(0);
 
   useEffect(() => {
-    if (data && data.number) {
-      setCarNum(data.number);
+    if (data && data.car_number) {
+      setCarNum(data.car_number);
     }
     if (data && data.name) {
       setcarParked(data.name);
     }
-    if (data && data.image) {
-      setCarImg(data.image);
+    if (data && data.entry_photo_ur) {
+      setCarImg(data.entry_photo_ur);
     }
     if (data && data.entry_time) {
       setEntryTime(data.entry_time);
     }
-    if (data && data.price) {
-      setPrice(data.price);
+    if (data && data.fee) {
+      setPrice(data.fee);
     }
   }, [data]);
 

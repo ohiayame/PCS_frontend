@@ -20,5 +20,9 @@ export function calculateParkingFee(duration) {
   const extraCost = extraUnits * addFee;
 
   // 최대 요금 제한
-  return Math.min(baseFee + extraCost, maxFee);
+  const totalFee = Math.min(baseFee + extraCost, maxFee);
+  return totalFee.toLocaleString("ko-KR", {
+    style: "currency",
+    currency: "KRW",
+  });
 }

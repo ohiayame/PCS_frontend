@@ -1,11 +1,6 @@
 // 상태별 색
 export function getColor(status) {
-  switch (status) {
-    case "parking":
-      return "#ff2b2bff";
-    case "moving":
-      return "#fcff5dff";
-    case "exit":
-      return "#4f7dfdff";
-  }
+  if (status == "parking" || status == "occupied") return "#ff2b2bff";
+  else if (status == "moving" || status == "entry") return "#fcff5dff";
+  else if (status == "exit") return "#4f7dfdff";
 }

@@ -6,17 +6,15 @@ function MovingCar({ Positions }) {
   const [position, setPosition] = useState([130, 100]);
   // 애니메이션
   useEffect(() => {
-    if (!Positions?.[0]) return;
-
-    const keys = Object.keys(Positions).sort((a, b) => Number(a) - Number(b));
+    if (Positions.length == 0) return setPosition;
     let index = 0;
 
     const moveInterval = setInterval(() => {
-      const current = Positions[keys[index]];
+      const current = Positions[index];
       setPosition(current);
 
       // 마지막 프레임이면 다시 처음으로
-      index = (index + 1) % keys.length;
+      index = (index + 1) % Positions.length;
     }, 800);
 
     return () => clearInterval(moveInterval);

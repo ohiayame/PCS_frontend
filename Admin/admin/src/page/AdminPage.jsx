@@ -155,7 +155,7 @@ function AdminPage() {
                         display: "inline-block",
                       }}
                     >
-                      {car.status == "target"
+                      {car.status == "entry"
                         ? "입차"
                         : car.status == "occupied"
                         ? "주차중"
@@ -170,7 +170,7 @@ function AdminPage() {
 
                   {/* 주차구역 */}
                   <TableCell align="center" sx={{ fontSize: "2.5rem" }}>
-                    {car.area}
+                    {car.slot_name}
                   </TableCell>
 
                   {/* 입차 시각 */}

@@ -22,8 +22,7 @@ const carData = await getCarInfoData();
 // ----------------- [ 왼쪽 정보 ] ---------------------
 const CarInfo = (car) => {
   // 총 주차시간 계산 -> 금액 계산에 활용
-  const time =
-    car.duration != "" ? car.duration : getElapsedTime(car.entry_time);
+  const time = getElapsedTime(car.entry_time);
   return (
     <>
       <Stack sx={{ mt: 5, minWidth: 300 }}>
@@ -74,7 +73,7 @@ const CarInfo = (car) => {
               <strong>번호 :</strong> {car.plate_number}
             </Typography>
             <Typography sx={{ fontSize: 35 }}>
-              <strong>주차구역 :</strong> {car.area}
+              <strong>주차구역 :</strong> {car.slot_name}
             </Typography>
             <Typography sx={{ fontSize: 35 }}>
               <strong>입차시각 :</strong> {dateAndTime(car.entry_time)}
@@ -111,7 +110,7 @@ const CarInfo = (car) => {
         >
           <CardMedia
             component="img"
-            image=""
+            image={car.entry_photo_url}
             alt="차량 사진"
             sx={{ objectFit: "contain", width: 400 }}
           />
@@ -165,10 +164,10 @@ function CarInfoPage() {
         }}
       >
         {/* 주차장 컴포넌트 */}
-        <ParkingLayout parking={car.area} status={car.status} />
+        <ParkingLayout parking={car.slot_name} status={car.status} />
       </Box>
       {/* 차량 동작 */}
-      <MovingCar Positions={car.route} />
+      <MovingCar Positions={car.routes} />
 
       {/* ---------------------  [ 로고 ]  --------------------- */}
       <Box

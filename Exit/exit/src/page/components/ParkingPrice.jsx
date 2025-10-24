@@ -26,7 +26,10 @@ function ParkingPrice({ value }) {
               fontSize: "90px",
             }}
           >
-            {value} 원
+            {value.toLocaleString("ko-KR", {
+              style: "currency",
+              currency: "KRW",
+            })}
           </Typography>
         </CardContent>
       </Card>

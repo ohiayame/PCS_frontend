@@ -18,7 +18,7 @@ function HomePage() {
   console.log("EmptyCount", EmptyCount);
 
   return (
-    <div style={{ backgroundColor: "#d1d1d1ff" }}>
+    <div style={{ backgroundColor: "#d1d1d1ff", height: 1200 }}>
       <GetData setData={setData} setPrevData={setPrevData} />
       <Stack direction="row" spacing={5} sx={{ alignItems: "flex-start" }}>
         {/* -----  주차 대수  ----- */}
