@@ -1,6 +1,6 @@
 // 시간 형식 변환
 export function Time(timestamp) {
-  const date = timestamp ? new Date(Number(timestamp) * 1000) : new Date();
+  const date = timestamp ? new Date(timestamp) : new Date();
 
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");

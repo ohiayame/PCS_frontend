@@ -8,8 +8,7 @@ import { useEffect, useState } from "react";
 
 import { Box, Typography, CardMedia } from "@mui/material";
 
-const Enter = (carNum, carImg, entryTime, carParked, price) => {
-  const entry = Time(entryTime);
+const Enter = (carNum, carImg, entry, carParked, price) => {
   const now = Time();
   const parkingTime = getElapsedTime(entry, now); // 주차 시간 계산
   // const price = calculateParkingFee(parkingTime); // 금액 계산
@@ -135,14 +134,16 @@ function EntrancePage() {
     if (data && data.car_number) {
       setCarNum(data.car_number);
     }
-    if (data && data.name) {
-      setcarParked(data.name);
+    if (data && data.slot_name) {
+      setcarParked(data.slot_name);
     }
-    if (data && data.entry_photo_ur) {
-      setCarImg(data.entry_photo_ur);
+    if (data && data.entry_photo_url) {
+      setCarImg(data.entry_photo_url);
     }
     if (data && data.entry_time) {
-      setEntryTime(data.entry_time);
+      const entry = Time(data.entry_time);
+      // console.log("set time", data.entry_time, entry);
+      setEntryTime(entry);
     }
     if (data && data.fee) {
       setPrice(data.fee);
@@ -155,7 +156,7 @@ function EntrancePage() {
       <GetData setData={setData} />
 
       {/* -----  출력  ----- */}
-      {data ? Enter(carNum, carImg, entryTime, carParked, price) : null}
+      {price ? Enter(carNum, carImg, entryTime, carParked, price) : null}
 
       {/* 로고 */}
       <Box
