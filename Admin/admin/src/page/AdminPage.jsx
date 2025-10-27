@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Box,
@@ -20,7 +20,6 @@ import { getColor } from "@/util/color";
 
 // ---------- Mock 데이터 ----------
 // const mockData = getCarData();
-const data = await getCarData();
 
 // 입력창 스타일(둥근 모서리, 연한 배경, 검은 테두리)
 const inputSx = {
@@ -41,19 +40,29 @@ function AdminPage() {
   const [number, setNumber] = useState("");
   const [from, setFrom] = useState(""); // yyyy-mm-dd
   const [to, setTo] = useState("");
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const d = await getCarData();
+      console.log("data", d);
+      setData(d);
+    };
+    fetchData();
+  }, []);
 
   // 필터링
   const rows = useMemo(() => {
     const start = from ? new Date(from + "T00:00:00") : null;
     const end = to ? new Date(to + "T23:59:59") : null;
-    return data.filter((r) => {
+    return data?.filter((r) => {
       const passNumber = number ? r.plate_number.includes(number) : true;
       const t = new Date(r.entry_time);
       const passFrom = start ? t >= start : true;
       const passTo = end ? t <= end : true;
       return passNumber && passFrom && passTo;
     });
-  }, [number, from, to]);
+  }, [number, from, to, data]);
 
   return (
     <div style={{ backgroundColor: "#d1d1d1ff", height: 1350 }}>
@@ -141,56 +150,57 @@ function AdminPage() {
 
             {/* 행 클릭 -> 해당 차량 log페이지 이동 :carId */}
             <TableBody>
-              {rows.map((car) => (
-                <TableRow
-                  key={car.id}
-                  hover
-                  sx={{ cursor: "pointer" }}
-                  onClick={() => navigate(`/carInfo/${car.id}`)}
-                >
-                  {/* 주차 상태 */}
-                  <TableCell align="center" sx={{ fontSize: "2.5rem" }}>
-                    <Box
-                      component="span"
-                      sx={{
-                        fontWeight: 700,
-                        width: "200px",
-                        px: 1.5,
-                        py: 0.25,
-                        backgroundColor: getColor(car.status),
-                        borderRadius: "9999px",
-                        display: "inline-block",
-                      }}
-                    >
-                      {car.status == "entry"
-                        ? "입차"
-                        : car.status == "parking"
-                        ? "주차중"
-                        : "출차"}
-                    </Box>
-                  </TableCell>
+              {data &&
+                rows?.map((car) => (
+                  <TableRow
+                    key={car.id}
+                    hover
+                    sx={{ cursor: "pointer" }}
+                    onClick={() => navigate(`/carInfo/${car.id}`)}
+                  >
+                    {/* 주차 상태 */}
+                    <TableCell align="center" sx={{ fontSize: "2.5rem" }}>
+                      <Box
+                        component="span"
+                        sx={{
+                          fontWeight: 700,
+                          width: "200px",
+                          px: 1.5,
+                          py: 0.25,
+                          backgroundColor: getColor(car.status),
+                          borderRadius: "9999px",
+                          display: "inline-block",
+                        }}
+                      >
+                        {car.status == "entry"
+                          ? "입차"
+                          : car.status == "parking"
+                          ? "주차중"
+                          : "출차"}
+                      </Box>
+                    </TableCell>
 
-                  {/* 번호 */}
-                  <TableCell align="center" sx={{ fontSize: "2.5rem" }}>
-                    {car.plate_number}
-                  </TableCell>
+                    {/* 번호 */}
+                    <TableCell align="center" sx={{ fontSize: "2.5rem" }}>
+                      {car.plate_number}
+                    </TableCell>
 
-                  {/* 주차구역 */}
-                  <TableCell align="center" sx={{ fontSize: "2.5rem" }}>
-                    {car.slot_name}
-                  </TableCell>
+                    {/* 주차구역 */}
+                    <TableCell align="center" sx={{ fontSize: "2.5rem" }}>
+                      {car.slot_name}
+                    </TableCell>
 
-                  {/* 입차 시각 */}
-                  <TableCell align="center" sx={{ fontSize: "2.5rem" }}>
-                    {dateAndTime(car.entry_time)}
-                  </TableCell>
+                    {/* 입차 시각 */}
+                    <TableCell align="center" sx={{ fontSize: "2.5rem" }}>
+                      {dateAndTime(car.entry_time)}
+                    </TableCell>
 
-                  {/* 출차 시각 */}
-                  <TableCell align="center" sx={{ fontSize: "2.5rem" }}>
-                    {dateAndTime(car.exit_time)}
-                  </TableCell>
-                </TableRow>
-              ))}
+                    {/* 출차 시각 */}
+                    <TableCell align="center" sx={{ fontSize: "2.5rem" }}>
+                      {dateAndTime(car.exit_time)}
+                    </TableCell>
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
         </TableContainer>
