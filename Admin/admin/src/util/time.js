@@ -2,6 +2,7 @@
 export function dateAndTime(iso) {
   if (!iso) return "";
   const d = new Date(iso);
+  console.log("date", d);
   const pad = (n) => String(n).padStart(2, "0");
   return `${d.getFullYear()}.${pad(d.getMonth() + 1)}.${pad(d.getDate())} ${pad(
     d.getHours()
@@ -9,11 +10,13 @@ export function dateAndTime(iso) {
 }
 
 // 주차시간 계산
-export function getElapsedTime(entryStr) {
+export function getElapsedTime(entryStr, exitStr) {
   console.log("entryStr", entryStr);
+  console.log("exitStr", exitStr);
+
   // 문자열 → Date 객체 변환
   const entry = new Date(entryStr);
-  const now = new Date();
+  const now = !exitStr ? new Date() : new Date(exitStr);
 
   // 차이(ms 단위)
   const diffMs = now - entry;

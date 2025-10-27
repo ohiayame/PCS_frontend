@@ -25,8 +25,8 @@ function MovingCar({ Positions }) {
       <Box
         sx={{
           position: "absolute",
-          top: `${120 + position[1]}px`,
-          left: `${720 + position[0]}px`,
+          top: position[1] ? `${120 + position[1]}px` : "220px",
+          left: position[0] ? `${720 + position[0]}px` : "850px",
           width: "150px",
           transform: "translate(-50%, -50%)", // 이미지 중심
           transition: "all 1s ease-in-out", // ← 부드럽게 이동

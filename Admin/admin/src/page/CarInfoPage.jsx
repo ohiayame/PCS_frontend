@@ -21,7 +21,7 @@ import { calculateParkingFee } from "@/util/price";
 // ----------------- [ 왼쪽 정보 ] ---------------------
 const CarInfo = (car) => {
   // 총 주차시간 계산 -> 금액 계산에 활용
-  const time = getElapsedTime(car?.entry_time);
+  const time = getElapsedTime(car?.entry_time, car?.exit_time);
   return (
     <>
       <Stack sx={{ mt: 5, minWidth: 300 }}>
@@ -111,9 +111,13 @@ const CarInfo = (car) => {
         >
           <CardMedia
             component="img"
-            image={"http://192.168.0.48:3000" + car?.entry_photo_url}
+            image={
+              car.entry_photo_url
+                ? "http://192.168.0.48:3000" + car?.entry_photo_url
+                : null
+            }
             alt={"차량사진 : http://192.168.0.48:3000" + car?.entry_photo_url}
-            sx={{ objectFit: "contain", width: 400 }}
+            sx={{ objectFit: "contain", width: "100%" }}
           />
         </Box>
       </Stack>

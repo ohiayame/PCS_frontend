@@ -12,6 +12,7 @@ import {
   TableHead,
   TableRow,
   TableContainer,
+  Pagination,
 } from "@mui/material";
 import QueryStatsIcon from "@mui/icons-material/QueryStats";
 import { getCarData } from "@/api/api";
@@ -42,6 +43,9 @@ function AdminPage() {
   const [to, setTo] = useState("");
   const [data, setData] = useState(null);
 
+  const [page, setPage] = useState(1);
+  const rowsPerPage = 8;
+
   useEffect(() => {
     const fetchData = async () => {
       const d = await getCarData();
@@ -63,6 +67,17 @@ function AdminPage() {
       return passNumber && passFrom && passTo;
     });
   }, [number, from, to, data]);
+
+  const paginatedRows = useMemo(() => {
+    if (!rows) return [];
+    const startIndex = (page - 1) * rowsPerPage;
+    const endIndex = startIndex + rowsPerPage;
+    return rows.slice(startIndex, endIndex);
+  }, [rows, page]);
+
+  const handleChangePage = (event, value) => {
+    setPage(value);
+  };
 
   return (
     <div style={{ backgroundColor: "#d1d1d1ff", height: 1350 }}>
@@ -151,7 +166,7 @@ function AdminPage() {
             {/* 행 클릭 -> 해당 차량 log페이지 이동 :carId */}
             <TableBody>
               {data &&
-                rows?.map((car) => (
+                paginatedRows?.map((car) => (
                   <TableRow
                     key={car.id}
                     hover
@@ -204,6 +219,18 @@ function AdminPage() {
             </TableBody>
           </Table>
         </TableContainer>
+
+        {rows && (
+          <Box display="flex" justifyContent="center" mt={5}>
+            <Pagination
+              count={Math.ceil(rows.length / rowsPerPage)}
+              page={page}
+              onChange={handleChangePage}
+              size="large"
+              color="primary"
+            />
+          </Box>
+        )}
       </Box>
     </div>
   );
