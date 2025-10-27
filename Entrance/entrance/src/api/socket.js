@@ -9,7 +9,7 @@ import io from "socket.io-client";
 const GetData = ({ setData }) => {
   useEffect(() => {
     // 서버와 WebSocket 연결
-    const newSocket = io("ws://127.0.0.1:5002");
+    const newSocket = io("http://192.168.0.48:3000");
 
     // 연결 확인용 로그
     newSocket.on("connect", () => {
@@ -22,8 +22,8 @@ const GetData = ({ setData }) => {
     });
 
     // 서버에서 입차를 보낼 때
-    newSocket.on("data", (newData) => {
-      // console.log("새 데이터 수신:", newData);
+    newSocket.on("entry_data", (newData) => {
+      console.log("새 데이터 수신:", newData);
       setData(newData);
     });
 
