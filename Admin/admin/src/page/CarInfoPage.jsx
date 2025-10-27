@@ -35,7 +35,9 @@ const CarInfo = (car) => {
             borderRadius: "30px",
             border: "1px solid rgba(0, 0, 0, 0.5)",
             boxShadow: "inset 0px 0px 10px rgba(0,0,0,.3)",
-            m: 3,
+            mb: 5,
+            mt: 5,
+            width: 620,
           }}
         >
           <Typography
@@ -46,7 +48,7 @@ const CarInfo = (car) => {
               transform: "translateX(30px)",
             }}
           >
-            {car?.status == "moving"
+            {car?.status == "entry"
               ? "입차"
               : car?.status == "parking"
               ? "주차중"
@@ -98,7 +100,7 @@ const CarInfo = (car) => {
         {/* -----  차량 사진  ----- */}
         <Box
           sx={{
-            mt: 3,
+            mt: 5,
             top: 700,
             width: 620,
             height: 390,
@@ -109,8 +111,8 @@ const CarInfo = (car) => {
         >
           <CardMedia
             component="img"
-            image={car?.entry_photo_url}
-            alt="차량 사진"
+            image={"http://192.168.0.48:3000" + car?.entry_photo_url}
+            alt={"차량사진 : http://192.168.0.48:3000" + car?.entry_photo_url}
             sx={{ objectFit: "contain", width: 400 }}
           />
         </Box>
@@ -141,16 +143,16 @@ function CarInfoPage() {
 
   return (
     car && (
-      <div style={{ backgroundColor: "#d1d1d1ff", height: 1200 }}>
+      <div style={{ backgroundColor: "#d1d1d1ff", height: 1350 }}>
         <Button
           onClick={() => navigate("/")}
           sx={{
-            mt: 3,
-            ml: 1,
+            mt: 5,
+            ml: 5,
             mb: 3,
-            width: 230,
+            // width: 230,
             height: 40,
-            fontSize: 40,
+            fontSize: 50,
           }}
         >
           🠔 돌아가기
@@ -160,7 +162,7 @@ function CarInfoPage() {
         <Stack
           direction="row"
           spacing={5}
-          sx={{ alignItems: "flex-start", ml: "15px" }}
+          sx={{ alignItems: "flex-start", ml: "50px" }}
         >
           {CarInfo(car)}
         </Stack>
@@ -168,8 +170,8 @@ function CarInfoPage() {
         <Box
           sx={{
             position: "fixed",
-            top: "45px",
-            left: "645px",
+            top: "120px",
+            left: "720px",
             borderRadius: 2,
           }}
         >
@@ -183,15 +185,15 @@ function CarInfoPage() {
         <Box
           sx={{
             position: "fixed",
-            top: 1040,
-            left: 1725,
+            top: 1150,
+            left: 1650,
           }}
         >
           <CardMedia
             component="img"
             image="/YeungjinLogo.png"
             alt="Yeungjin Logo"
-            sx={{ objectFit: "contain", width: 500 }}
+            sx={{ objectFit: "contain", width: 700 }}
           />
         </Box>
       </div>
